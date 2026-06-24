@@ -1,9 +1,9 @@
 import type { Request, Response } from "express";
-import { getEnv } from "../lib/env";
+import { getEnv } from "../lib/env.js";
 import { verifyWebhook } from "@clerk/backend/webhooks";
-import { parseRole } from "../lib/roles";
-import { db } from "../db";
-import { users } from "../db/schema";
+import { parseRole } from "../lib/roles.js";
+import { db } from "../db/index.js";
+import { users } from "../db/schema.js";
 import { eq } from "drizzle-orm";
 
 export async function clerkWebhookHandler(req: Request, res: Response) {

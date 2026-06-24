@@ -1,14 +1,14 @@
 import { getAuth } from "@clerk/express";
 import type { Request, Response, NextFunction } from "express";
-import { getLocalUser } from "../lib/users";
-import { isAdmin } from "../lib/roles";
+import { getLocalUser } from "../lib/users.js";
+import { isAdmin } from "../lib/roles.js";
 import ImageKit from "@imagekit/nodejs";
-import { getEnv } from "../lib/env";
-import { db } from "../db";
-import { orderItems, products } from "../db/schema";
+import { getEnv } from "../lib/env.js";
+import { db } from "../db/index.js";
+import { orderItems, products } from "../db/schema.js";
 import { count, desc, eq } from "drizzle-orm";
 import { z } from "zod";
-import { deleteImageKitAsset } from "../lib/imagekit";
+import { deleteImageKitAsset } from "../lib/imagekit.js";
 
 const env = getEnv();
 

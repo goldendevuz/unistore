@@ -1,4 +1,4 @@
-import { Show, SignInButton, SignUpButton, useAuth, UserButton } from "@clerk/react";
+import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@clerk/clerk-react";
 import PageLoader from "./components/PageLoader";
 import Layout from "./components/Layout";
 import { Routes, Route, Navigate } from "react-router";
@@ -7,7 +7,7 @@ import CartPage from "./pages/CartPage";
 import OrdersPage from "./pages/OrdersPage";
 import CheckoutReturnPage from "./pages/CheckoutReturnPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
-import { SentryDemoPage } from "./pages/SentryDemoPage";
+import { SentryDemoPage } from "./pages/SentryDemoPage.js";
 import OrderDetailPage from "./pages/OrderDetailPage";
 import OrderSummaryPage from "./pages/OrderSummaryPage";
 import OrderChatPage from "./pages/OrderChatPage";

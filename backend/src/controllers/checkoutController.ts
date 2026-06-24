@@ -1,12 +1,12 @@
 import type { Request, Response, NextFunction } from "express";
-import { getEnv } from "../lib/env";
+import { getEnv } from "../lib/env.js";
 import z from "zod";
 import { getAuth } from "@clerk/express";
-import { getLocalUser } from "../lib/users";
-import { db } from "../db";
-import { CheckoutSessionLine, checkoutSessions, products } from "../db/schema";
+import { getLocalUser } from "../lib/users.js";
+import { db } from "../db/index.js";
+import { CheckoutSessionLine, checkoutSessions, products } from "../db/schema.js";
 import { and, eq, inArray } from "drizzle-orm";
-import { polarCreateCheckout } from "../lib/polar";
+import { polarCreateCheckout } from "../lib/polar.js";
 
 const env = getEnv();
 

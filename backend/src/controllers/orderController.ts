@@ -1,12 +1,12 @@
 import { getAuth } from "@clerk/express";
 import type { NextFunction, Response, Request } from "express";
-import { getLocalUser } from "../lib/users";
-import { isStaff } from "../lib/roles";
-import { db } from "../db";
-import { orderItems, orders, products, users } from "../db/schema";
+import { getLocalUser } from "../lib/users.js";
+import { isStaff } from "../lib/roles.js";
+import { db } from "../db/index.js";
+import { orderItems, orders, products, users } from "../db/schema.js";
 import { asc, desc, eq, inArray } from "drizzle-orm";
-import { getStreamChatServer, streamChatDisplayName, streamUserId } from "../lib/stream";
-import { getEnv } from "../lib/env";
+import { getStreamChatServer, streamChatDisplayName, streamUserId } from "../lib/stream.js";
+import { getEnv } from "../lib/env.js";
 
 const env = getEnv();
 

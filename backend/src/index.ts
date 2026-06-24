@@ -8,19 +8,19 @@ import path from "node:path";
 import * as Sentry from "@sentry/node";
 
 import { clerkMiddleware } from "@clerk/express";
-import { clerkWebhookHandler } from "./webhooks/clerk";
-import { getEnv } from "./lib/env";
-import keepAliveCron from "./lib/cron";
+import { clerkWebhookHandler } from "./webhooks/clerk.js";
+import { getEnv } from "./lib/env.js";
+import keepAliveCron from "./lib/cron.js";
 
-import productRouter from "./routes/productRouter";
-import meRouter from "./routes/meRouter";
-import streamRouter from "./routes/streamRouter";
-import chekoutRouter from "./routes/chekoutRouter";
-import adminRouter from "./routes/adminRouter";
-import orderRouter from "./routes/orderRouter";
+import productRouter from "./routes/productRouter.js";
+import meRouter from "./routes/meRouter.js";
+import streamRouter from "./routes/streamRouter.js";
+import chekoutRouter from "./routes/chekoutRouter.js";
+import adminRouter from "./routes/adminRouter.js";
+import orderRouter from "./routes/orderRouter.js";
 
-import { polarWebhookHandler } from "./webhooks/polar";
-import { sentryClerkUserMiddleware } from "./middleware/sentryClerkUser";
+import { polarWebhookHandler } from "./webhooks/polar.js";
+import { sentryClerkUserMiddleware } from "./middleware/sentryClerkUser.js";
 
 const env = getEnv();
 const app = express();
