@@ -31,7 +31,10 @@ Sentry.init({
 });
 
 // IMPORTANT: raw body for webhooks
-const rawJson = express.raw({ type: "application/json", limit: "1mb" });
+const rawJson = express.raw({
+  type: "application/json",
+  limit: "1mb",
+});
 
 app.post("/webhooks/clerk", rawJson, (req, res) => {
   void clerkWebhookHandler(req, res);
@@ -41,7 +44,13 @@ app.post("/webhooks/polar", rawJson, (req, res) => {
   void polarWebhookHandler(req, res);
 });
 
-app.use(cors());
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+  }),
+);
+
 app.use(express.json());
 
 app.use(clerkMiddleware());
@@ -58,8 +67,9 @@ app.use("/api/checkout", chekoutRouter);
 app.use("/api/admin", adminRouter);
 app.use("/api/orders", orderRouter);
 
-// STATIC FRONTEND (optional)
+// Static frontend (optional)
 const publicDir = path.join(process.cwd(), "public");
+
 if (fs.existsSync(publicDir)) {
   app.use(express.static(publicDir));
 
@@ -68,27 +78,37 @@ if (fs.existsSync(publicDir)) {
       return next();
     }
 
-    res.sendFile(path.join(publicDir, "index.html"), (err) => next(err));
+    res.sendFile(path.join(publicDir, "index.html"), (sendFileError) => {
+      next(sendFileError);
+    });
   });
 }
 
-// Sentry error handler (must be before custom handler)
+// Sentry error handler
 Sentry.setupExpressErrorHandler(app);
 
-app.use((err: unknown, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
-  const sentryId = (res as express.Response & { sentry?: string }).sentry;
+// Custom error handler
+app.use(
+  (
+    _err: unknown,
+    _req: express.Request,
+    res: express.Response,
+    _next: express.NextFunction,
+  ) => {
+    const sentryId = (res as express.Response & { sentry?: string }).sentry;
 
-  res.status(500).json({
-    error: "Internal server error",
-    ...(sentryId ? { sentryId } : {}),
-  });
-});
+    res.status(500).json({
+      error: "Internal server error",
+      ...(sentryId ? { sentryId } : {}),
+    });
+  },
+);
 
-// 🚀 CRITICAL FIX FOR FLY.IO
-const port = Number(process.env.PORT) || 5000;
+// Fly.io / Docker
+const port = Number(process.env.PORT ?? env.PORT ?? 5000);
 
 app.listen(port, "0.0.0.0", () => {
-  console.log("Listening on:", port);
+  console.log(`Listening on port ${port}`);
 
   if (env.NODE_ENV === "production") {
     keepAliveCron.start();

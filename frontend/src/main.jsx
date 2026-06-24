@@ -14,9 +14,20 @@ import { SentryUserSync } from "./components/SentryUserSync.jsx";
 
 const queryClient = new QueryClient();
 
+const clerkPubKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
+
+if (!clerkPubKey) {
+  throw new Error("Missing VITE_CLERK_PUBLISHABLE_KEY");
+}
+
 const apiBase = import.meta.env.VITE_API_URL ?? "";
+
 const tracePropagationTargets =
-  apiBase.length > 0 ? [apiBase] : typeof window !== "undefined" ? [window.location.origin] : [];
+  apiBase.length > 0
+    ? [apiBase]
+    : typeof window !== "undefined"
+      ? [window.location.origin]
+      : [];
 
 Sentry.init({
   dsn: import.meta.env.VITE_SENTRY_DSN,
@@ -31,7 +42,7 @@ Sentry.init({
     }),
   ],
   tracesSampleRate: 1.0,
-  tracePropagationTargets: tracePropagationTargets,
+  tracePropagationTargets,
   replaysSessionSampleRate: 1.0,
   replaysOnErrorSampleRate: 1.0,
   enableLogs: true,
@@ -39,7 +50,7 @@ Sentry.init({
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <ClerkProvider>
+    <ClerkProvider publishableKey={clerkPubKey}>
       <SentryUserSync />
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
@@ -51,10 +62,3 @@ createRoot(document.getElementById("root")).render(
     </ClerkProvider>
   </StrictMode>,
 );
-
-// In simple terms, 'browserTracingIntegration' lets Sentry see things like:
-// page load timing
-// route/navigation timing
-// slow frontend interactions
-// outgoing fetch / API requests
-// frontend-to-backend trace linking
