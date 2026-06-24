@@ -1,4 +1,4 @@
-import { Show, SignInButton, useAuth, UserButton } from "@clerk/react";
+import { Show, SignInButton, useAuth, UserButton } from "@clerk/clerk-react";
 import { useQuery } from "@tanstack/react-query";
 import { apiFetch } from "../lib/api";
 import { Link } from "react-router";

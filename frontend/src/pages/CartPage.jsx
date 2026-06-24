@@ -13,7 +13,7 @@ import { PageError } from "../components/PageError";
 import { IK_PRESETS, imageKitOptimizedUrl } from "../lib/imagekitUrl";
 import { Link } from "react-router";
 import { formatPrice } from "../utils/format";
-import { Show, SignInButton } from "@clerk/react";
+import { Show, SignInButton } from "@clerk/clerk-react";
 
 function CartPage() {
   const {
