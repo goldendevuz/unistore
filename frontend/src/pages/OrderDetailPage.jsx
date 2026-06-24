@@ -1,4 +1,4 @@
-import { Link, NavLink, Outlet } from "react-router";
+import { Link, NavLink, Outlet } from "react-router-dom";
 import { OrderDetailSkeleton } from "../components/LoadingSkeletons";
 import { PageError } from "../components/PageError";
 import { useOrderDetailPage } from "../hooks/useOrderDetailPage";

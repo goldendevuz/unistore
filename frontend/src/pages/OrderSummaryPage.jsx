@@ -1,5 +1,5 @@
 import { ListOrderedIcon, PackageIcon } from "lucide-react";
-import { Link, useOutletContext } from "react-router";
+import { Link, useOutletContext } from "react-router-dom";
 import { IK_PRESETS, imageKitOptimizedUrl } from "../lib/imagekitUrl";
 import { formatPrice } from "../utils/format";
 

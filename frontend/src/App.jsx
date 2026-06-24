@@ -1,7 +1,7 @@
 import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@clerk/clerk-react";
 import PageLoader from "./components/PageLoader";
 import Layout from "./components/Layout";
-import { Routes, Route, Navigate } from "react-router";
+import { Routes, Route, Navigate } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import CartPage from "./pages/CartPage";
 import OrdersPage from "./pages/OrdersPage";
